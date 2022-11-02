@@ -1,6 +1,6 @@
 class BuyerAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :building_name, :phone, :buyer_id
+  attr_accessor :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :building_name, :phone, :buyer_id, :token
 
   with_options presence: true do
     validates :user_id
@@ -9,6 +9,7 @@ class BuyerAddress
     validates :city
     validates :house_number 
     validates :phone, format: {with: /\A\d{10,11}\z/}
+    validates :token
   end
   validates :region_id, numericality: {other_than: 0, message: "can't be blank"}
 
