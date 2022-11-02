@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:show, :edit, :update, :destroy]
   before_action :correct_item, only: [:edit, :destroy]
+  before_action :item_buyer, only: :edit
 
 
   def index
@@ -42,6 +43,12 @@ class ItemsController < ApplicationController
 
   def correct_item
     redirect_to root_path unless @item.user.id == current_user.id
+  end
+
+  def item_buyer
+    if @item.buyer
+      redirect_to root_path
+    end
   end
 
   private

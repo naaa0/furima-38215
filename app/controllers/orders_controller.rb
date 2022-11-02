@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :find_item, only: [:index, :create]
+  before_action :item_buyer, only: [:index, :create]
   
   def index
     @buyer_address = BuyerAddress.new
@@ -16,11 +18,17 @@ class OrdersController < ApplicationController
     end
   end
 
-  private
-
   def find_item
     @item = Item.find(params[:item_id])
   end
+
+  def item_buyer
+    if user_signed_in? && @item.buyer
+      redirect_to root_path
+    end
+  end
+
+  private
 
   def buyer_params
     params.require(:buyer_address).permit(:postal_code, :region_id, :city, :house_number, :building_name, :phone).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
