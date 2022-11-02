@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
   before_action :correct_item, only: [:edit, :destroy]
   before_action :item_buyer, only: :edit
 
-
   def index
     @item = Item.order('created_at DESC')
   end
@@ -46,9 +45,7 @@ class ItemsController < ApplicationController
   end
 
   def item_buyer
-    if @item.buyer
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.buyer
   end
 
   private

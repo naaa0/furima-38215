@@ -6,7 +6,7 @@ RSpec.describe BuyerAddress, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @buyer_address = FactoryBot.build(:buyer_address, user_id: user.id, item_id: item.id)
-      sleep 0.1 
+      sleep 0.1
     end
 
     context '内容に問題ない場合' do
@@ -32,7 +32,7 @@ RSpec.describe BuyerAddress, type: :model do
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @buyer_address.postal_code = '1234567'
         @buyer_address.valid?
-        expect(@buyer_address.errors.full_messages).to include("Postal code is invalid. Enter it as follows(e.g. 123-4567)")
+        expect(@buyer_address.errors.full_messages).to include('Postal code is invalid. Enter it as follows(e.g. 123-4567)')
       end
       it 'region_idが空では登録できない' do
         @buyer_address.region_id = ''
@@ -62,12 +62,12 @@ RSpec.describe BuyerAddress, type: :model do
       it 'phoneが10桁未満では保存できないこと' do
         @buyer_address.phone = '123456'
         @buyer_address.valid?
-        expect(@buyer_address.errors.full_messages).to include("Phone is too short")
+        expect(@buyer_address.errors.full_messages).to include('Phone is too short')
       end
       it 'phoneが半角数値以外では保存できないこと' do
         @buyer_address.phone = '123-4567-8910'
         @buyer_address.valid?
-        expect(@buyer_address.errors.full_messages).to include("Phone is invalid. Input only number")
+        expect(@buyer_address.errors.full_messages).to include('Phone is invalid. Input only number')
       end
     end
   end

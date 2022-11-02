@@ -5,7 +5,7 @@ FactoryBot.define do
     city { '大田区' }
     house_number { '仲池上1-1-1' }
     building_name { '東京ハイツ101' }
-    phone { 11111111111 }
+    phone { 11_111_111_111 }
     token { Faker::Lorem.word }
   end
 end
