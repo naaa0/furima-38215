@@ -10,7 +10,7 @@ class BuyerAddress
     validates :region_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :house_number
-    validates :phone, length: { minimum: 10, message: 'is too short' },
+    validates :phone, length: { minimum: 10,  maximum: 11 },
                       numericality: { only_integer: true, message: 'is invalid. Input only number' }
   end
 

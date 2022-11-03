@@ -62,12 +62,27 @@ RSpec.describe BuyerAddress, type: :model do
       it 'phoneが10桁未満では保存できないこと' do
         @buyer_address.phone = '123456'
         @buyer_address.valid?
-        expect(@buyer_address.errors.full_messages).to include('Phone is too short')
+        expect(@buyer_address.errors.full_messages).to include('Phone is too short (minimum is 10 characters)')
+      end
+      it 'phoneが12桁以上では保存できないこと' do
+        @buyer_address.phone = '123456789101'
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
       end
       it 'phoneが半角数値以外では保存できないこと' do
         @buyer_address.phone = '123-4567-8910'
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include('Phone is invalid. Input only number')
+      end
+      it 'user_idが空では購入できないこと' do
+        @buyer_address.user_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では購入できないこと' do
+        @buyer_address.item_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
